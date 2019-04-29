@@ -10,6 +10,8 @@ module Pronto
   # 3. Runs bundle-audit to scan the Gemfile.lock
   # 4. Returns an Array of Pronto::Message objects if any issues are found
   class BundlerAudit < Runner
+    GEMFILE_LOCK_FILENAME = "Gemfile.lock".freeze
+
     def run
       patch = find_relevant_patch
 
@@ -27,7 +29,7 @@ module Pronto
 
     def relevant_patch_path?(patch)
       patch_path = patch.new_file_full_path.to_s
-      patch_path.end_with?("Gemfile.lock")
+      patch_path.end_with?(GEMFILE_LOCK_FILENAME)
     end
 
     # Pronto::BundlerAudit::PatchHandler run Bundle Audit on the given patch
@@ -63,28 +65,48 @@ module Pronto
       def process_scan_result(scan_result)
         case scan_result
         when Bundler::Audit::Scanner::InsecureSource
-          build_warning_message(
-            "Insecure Source URI found: #{scan_result.source}")
+          report_insecure_source_scan_result
         when Bundler::Audit::Scanner::UnpatchedGem
-          advisory =
-            AdvisoryFormatter.new(
-              gem: scan_result.gem, advisory: scan_result.advisory)
-          message = advisory.to_compact_s
-
-          build_error_message(message)
+          report_unpatched_gem_scan_result(scan_result)
         end
+      end
+
+      def report_insecure_source_scan_result(scan_result)
+        build_warning_message(
+          "Insecure Source URI found: #{scan_result.source}")
+      end
+
+      def report_unpatched_gem_scan_result(scan_result)
+        advisory =
+          AdvisoryFormatter.new(
+            gem: scan_result.gem, advisory: scan_result.advisory)
+        message = advisory.to_compact_s
+        line = find_relevant_line(advisory)
+
+        build_error_message(message, line: line)
+      end
+
+      # @return [Pronto::Git::Line]
+      def find_relevant_line(advisory)
+        first_added_line_for_affected_gem_name(advisory.gem_name)
+      end
+
+      # @return [Pronto::Git::Line]
+      def first_added_line_for_affected_gem_name(gem_name)
+        @patch.added_lines.detect { |line| line.content.include?(gem_name) }
       end
 
       def build_warning_message(message)
         build_message(message, level: :warning)
       end
 
-      def build_error_message(message)
-        build_message(message, level: :error)
+      def build_error_message(message, line:)
+        build_message(message, level: :error, line: line)
       end
 
-      def build_message(message, level:)
-        Message.new("Gemfile.lock", nil, level, message, nil, @runner.class)
+      def build_message(message, level:, line:)
+        Message.new(
+          GEMFILE_LOCK_FILENAME, line, level, message, nil, @runner.class)
       end
 
       # Pronto::BundlerAudit::PatchHandler::AdvisoryFormatter is a message
@@ -119,11 +141,11 @@ module Pronto
           ].join(" | ")
         end
 
-        private
-
         def gem_name
           @gem.name
         end
+
+        private
 
         def gem_version
           @gem.version
