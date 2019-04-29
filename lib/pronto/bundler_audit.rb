@@ -8,7 +8,7 @@ module Pronto
   #    Gemfile.lock)
   # 2. Updates the Ruby Advisory Database
   # 3. Runs bundle-audit to scan the Gemfile.lock
-  # 4. Returns an Array of Pronto::Message objects if any issues are found
+  # 4. Returns an Array of Pronto::Message objects if any advisories are found
   class BundlerAudit < Runner
     GEMFILE_LOCK_FILENAME = "Gemfile.lock".freeze
 
@@ -32,8 +32,9 @@ module Pronto
       patch_path.end_with?(GEMFILE_LOCK_FILENAME)
     end
 
-    # Pronto::BundlerAudit::PatchHandler run Bundle Audit on the given patch
-    # and returns an Array of Pronto::Message objects, if any issues are found.
+    # Pronto::BundlerAudit::PatchHandler runs Bundle Audit on the given patch
+    # and returns an Array of Pronto::Message objects if any advisories are
+    # found.
     class PatchHandler
       def initialize(patch, runner:)
         @patch = patch
@@ -52,8 +53,8 @@ module Pronto
         Bundler::Audit::Database.update!(quiet: true)
       end
 
-      # @return [Array>] if no issues were found
-      # @return [Array<Pronto::Message>] if issues were found
+      # @return [Array>] if no advisories were found
+      # @return [Array<Pronto::Message>] if advisories were found
       def run_scan
         scanner = Bundler::Audit::Scanner.new
 
