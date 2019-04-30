@@ -1,3 +1,8 @@
+[![Gem Version](https://badge.fury.io/rb/pronto-bundler_audit.svg)](https://badge.fury.io/rb/pronto-bundler_audit)
+[![Build Status](https://travis-ci.org/pdobb/pronto-bundler_audit.svg?branch=master)](https://travis-ci.org/pdobb/pronto-bundler_audit)
+[![Maintainability](https://api.codeclimate.com/v1/badges/7ac01a6a6eace46487d9/maintainability)](https://codeclimate.com/github/pdobb/pronto-bundler_audit/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/7ac01a6a6eace46487d9/test_coverage)](https://codeclimate.com/github/pdobb/pronto-bundler_audit/test_coverage)
+
 # Pronto::BundlerAudit
 
 Pronto runner for [bundler-audit](https://github.com/rubysec/bundler-audit), patch-level verification for bundler. [What is Pronto?](https://github.com/prontolabs/pronto)
@@ -17,6 +22,15 @@ And then execute:
 Or install it yourself as:
 
     $ gem install pronto-bundler_audit
+
+## Compatibility
+
+Tested MRI Ruby Versions:
+* 2.3
+* 2.4
+* 2.5
+* 2.6
+* edge
 
 ## Usage
 
@@ -50,7 +64,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## TODO
 
-* Add tests
+* Add more tests
 * Add configuration for compact vs expanded advisories reporting
 
 ## Contributing
