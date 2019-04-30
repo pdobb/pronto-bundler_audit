@@ -1,3 +1,7 @@
+### 0.2.1 - 2019-04-30
+- Fix handling of the Pronto::Git::Patches collection in Pronto::BundlerAudit#run
+- Ensure an Array is returned by Pronto::BundlerAudit#run, as expected by Pronto
+
 ### 0.2.0 - 2019-04-30
 - Fix conditional for running Bundle Audit scans -- was always running even if there was nothing to run on in a given Pronto::Patches set
 

@@ -34,7 +34,7 @@ class Pronto::BundlerAuditTest < Minitest::Spec
           it "does not call Pronto::BundlerAudit::PatchHandler" do
             klazz::PatchHandler.any_instance.expects(:call).never
 
-            subject.run
+            value(subject.run).must_be_kind_of(Array)
           end
         end
       end
@@ -45,7 +45,7 @@ class Pronto::BundlerAuditTest < Minitest::Spec
         it "does not Pronto::BundlerAudit::PatchHandler" do
           klazz::PatchHandler.any_instance.expects(:call).never
 
-          subject.run
+          value(subject.run).must_be_kind_of(Array)
         end
       end
     end

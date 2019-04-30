@@ -14,19 +14,20 @@ module Pronto
   class BundlerAudit < Runner
     GEMFILE_LOCK_FILENAME = "Gemfile.lock".freeze
 
+    # @return [Array] per Pronto expectation
     def run
-      patch = find_relevant_patch
-
-      if patch
+      if (patch = find_relevant_patch)
         patch_handler = PatchHandler.new(patch, runner: self)
         patch_handler.call
+      else
+        []
       end
     end
 
     private
 
     def find_relevant_patch
-      @patches.reverse.detect { |patch|
+      @patches.to_a.reverse.detect { |patch|
         patch.additions > 0 && relevant_patch_path?(patch)
       }
     end
