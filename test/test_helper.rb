@@ -15,10 +15,14 @@ require "minitest/reporters"
 require "mocha/minitest"
 require "pry"
 
-Minitest::Test.make_my_diffs_pretty!
+Dir[File.join("test", "support", "*.rb")].each { |path|
+  require "support/#{File.basename(path)}"
+}
+
 reporter_options = { color: true }
 Minitest::Reporters.use!(
   Minitest::Reporters::DefaultReporter.new(reporter_options))
+Minitest::Test.make_my_diffs_pretty!
 
 def context(*args, &block)
   describe(*args, &block)
