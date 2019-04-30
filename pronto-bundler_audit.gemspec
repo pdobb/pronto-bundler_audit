@@ -1,11 +1,10 @@
-
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "pronto/bundler_audit/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "pronto-bundler_audit"
-  spec.version       = Pronto::BundlerAudit::VERSION
+  spec.version       = Pronto::BundlerAuditVersion::VERSION
   spec.authors       = ["Paul Dobbins"]
   spec.email         = ["paul.dobbins@icloud.com"]
 

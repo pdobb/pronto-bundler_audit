@@ -1,6 +1,7 @@
 require "pronto"
 require "bundler/audit/database"
 require "bundler/audit/scanner"
+require "pronto/bundler_audit/version"
 
 module Pronto
   # Pronto::BundlerAudit is a Pronto::Runner that:
