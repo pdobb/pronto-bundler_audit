@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Pronto
   class BundlerAudit
     module AdvisoryFormatters
@@ -58,7 +60,7 @@ module Pronto
         end
 
         def patched_versions
-          @advisory.patched_versions.join(', ')
+          @advisory.patched_versions.join(", ")
         end
 
         def any_patched_versions?

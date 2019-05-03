@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "pronto"
 require "bundler/audit/database"
 require "bundler/audit/scanner"
@@ -10,7 +12,7 @@ module Pronto
   # 3. Runs bundle-audit to scan the Gemfile.lock
   # 4. Returns an Array of Pronto::Message objects if any advisories are found
   class BundlerAudit < Runner
-    GEMFILE_LOCK_FILENAME = "Gemfile.lock".freeze
+    GEMFILE_LOCK_FILENAME = "Gemfile.lock"
 
     # @return [Array] per Pronto expectation
     def run

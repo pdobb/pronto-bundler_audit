@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "results/insecure_source"
 require_relative "results/unpatched_gem"
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # FakeScanResult is a test double for Bundler::Audit::Scanner::* types.
 class FakeScanResult
   def gem

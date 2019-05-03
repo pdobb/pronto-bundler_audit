@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "base_result"
 require "pronto/bundler_audit/advisory_formatters/verbose"
 require "pronto/bundler_audit/advisory_formatters/compact"

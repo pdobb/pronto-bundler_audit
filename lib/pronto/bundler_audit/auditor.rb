@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "pronto/bundler_audit/scanner"
 
 module Pronto

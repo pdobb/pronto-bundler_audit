@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # FakeGem is a test double for a Gem::Specification.
 class FakeGem
   def name

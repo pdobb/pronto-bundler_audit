@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # FakeAdvisory is a test double for Bundler::Audit::Advisory
 class FakeAdvisory
   def cve
