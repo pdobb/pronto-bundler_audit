@@ -25,10 +25,6 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
           }
         end
 
-        after do
-          MuchStub.unstub!
-        end
-
         subject { klazz.new(patch1) }
 
         it "calls a Results::InsecureSource instance with the scan result" do
@@ -53,10 +49,6 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
             @unpatched_gem_result_called_with = args
             FakeUnpatchedGemResult.new(*args)
           }
-        end
-
-        after do
-          MuchStub.unstub!
         end
 
         subject { klazz.new(patch1) }

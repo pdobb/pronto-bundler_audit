@@ -16,10 +16,6 @@ class Pronto::BundlerAudit::Results::UnpatchedGemTest < Minitest::Spec
         }
       end
 
-      after do
-        MuchStub.unstub!
-      end
-
       subject { klazz.new(FakeScanResult.new, patch: FakePatch.new) }
 
       it "returns a Pronto::Message" do

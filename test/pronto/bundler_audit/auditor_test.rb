@@ -23,10 +23,6 @@ class Pronto::BundlerAudit::AuditorTest < Minitest::Spec
         }
       end
 
-      after do
-        MuchStub.unstub!
-      end
-
       subject { klazz.new(patch1) }
 
       it "calls Bundler::Audit::Database.update! and Pronto::BundlerAudit::Scanner" do

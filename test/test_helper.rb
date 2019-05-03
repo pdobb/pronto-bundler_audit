@@ -24,7 +24,14 @@ Dir[File.join("test", "support", "*.rb")].each { |path|
 reporter_options = { color: true }
 Minitest::Reporters.use!(
   Minitest::Reporters::DefaultReporter.new(reporter_options))
+
 Minitest::Test.make_my_diffs_pretty!
+
+class Minitest::Spec
+  def teardown
+    MuchStub.unstub!
+  end
+end
 
 def context(*args, &block)
   describe(*args, &block)

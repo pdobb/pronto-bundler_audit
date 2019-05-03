@@ -16,10 +16,6 @@ class Pronto::BundlerAuditTest < Minitest::Spec
         }
       end
 
-      after do
-        MuchStub.unstub!
-      end
-
       context "GIVEN Pronto::Git::Patch#additions > 0" do
         context "GIVEN Pronto::Git::Patch#new_file_full_path ends with Gemfile.lock" do
           subject { klazz.new([patch1]) }
