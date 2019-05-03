@@ -64,7 +64,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## TODO
 
-* Add more tests
 * Add configuration for compact vs expanded advisories reporting
 
 ## Contributing

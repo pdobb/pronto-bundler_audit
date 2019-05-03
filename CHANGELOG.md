@@ -1,5 +1,6 @@
-### Unreleased
+### 0.3.0 - 2019-05-03
 - Internal rewrite into smaller objects with full test coverage
+- Switch to using the verbose advisory formatter by default
 
 ### 0.2.1 - 2019-04-30
 - Fix handling of the Pronto::Git::Patches collection in Pronto::BundlerAudit#run

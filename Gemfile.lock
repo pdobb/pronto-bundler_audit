@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pronto-bundler_audit (0.2.1)
+    pronto-bundler_audit (0.3.0)
       bundler-audit (~> 0)
       pronto (~> 0)
 
