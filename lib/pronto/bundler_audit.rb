@@ -1,8 +1,6 @@
 require "pronto"
 require "bundler/audit/database"
 require "bundler/audit/scanner"
-require "pronto/bundler_audit/version"
-require "pronto/bundler_audit/patch_handler"
 
 module Pronto
   # Pronto::BundlerAudit is a Pronto::Runner that:
@@ -17,8 +15,8 @@ module Pronto
     # @return [Array] per Pronto expectation
     def run
       if (patch = find_relevant_patch)
-        patch_handler = PatchHandler.new(patch, runner: self)
-        patch_handler.call
+        auditor = Auditor.new(patch)
+        auditor.call
       else
         []
       end
@@ -38,3 +36,6 @@ module Pronto
     end
   end
 end
+
+require "pronto/bundler_audit/version"
+require "pronto/bundler_audit/auditor"

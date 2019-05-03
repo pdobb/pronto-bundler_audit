@@ -1,3 +1,6 @@
+### Unreleased
+- Internal rewrite into smaller objects with full test coverage
+
 ### 0.2.1 - 2019-04-30
 - Fix handling of the Pronto::Git::Patches collection in Pronto::BundlerAudit#run
 - Ensure an Array is returned by Pronto::BundlerAudit#run, as expected by Pronto

@@ -12,7 +12,7 @@ require "pronto/bundler_audit"
 
 require "minitest/autorun"
 require "minitest/reporters"
-require "mocha/minitest"
+require "much-stub"
 require "pry"
 
 Dir[File.join("test", "support", "*.rb")].each { |path|

@@ -1,0 +1,132 @@
+require "test_helper"
+
+class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
+  describe "Pronto::BundlerAudit::Scanner" do
+    let(:base_klazz) { Pronto::BundlerAudit }
+    let(:klazz) { base_klazz::Scanner }
+
+    let(:patch1) { FakePatch.new }
+
+    describe "#call" do
+      context "GIVEN a Bundler::Audit::Scanner::InsecureSource is found" do
+        before do
+          @bundler_audit_scanner_called_with = nil
+          MuchStub.stub(Bundler::Audit::Scanner, :new) { |*args|
+            @bundler_audit_scanner_called_with = args
+            FakeInsecureSourceBundlerAuditScanner.new(*args)
+          }
+
+          @insecure_source_result_called_with = nil
+          MuchStub.stub(base_klazz::Results::InsecureSource, :new) { |*args|
+            @insecure_source_result_called_with = args
+            FakeInsecureSourceResult.new(*args)
+          }
+        end
+
+        after do
+          MuchStub.unstub!
+        end
+
+        subject { klazz.new(patch1) }
+
+        it "calls a Results::InsecureSource instance with the scan result" do
+          subject.call
+
+          value(@bundler_audit_scanner_called_with).must_equal([])
+          value(@insecure_source_result_called_with.first).
+            must_be_kind_of(Bundler::Audit::Scanner::InsecureSource)
+        end
+      end
+
+      context "GIVEN a Bundler::Audit::Scanner::UnpatchedGem is found" do
+        before do
+          @bundler_audit_scanner_called_with = nil
+          MuchStub.stub(Bundler::Audit::Scanner, :new) { |*args|
+            @bundler_audit_scanner_called_with = args
+            FakeUnpatchedGemBundlerAuditScanner.new(*args)
+          }
+
+          @unpatched_gem_result_called_with = nil
+          MuchStub.stub(base_klazz::Results::UnpatchedGem, :new) { |*args|
+            @unpatched_gem_result_called_with = args
+            FakeUnpatchedGemResult.new(*args)
+          }
+        end
+
+        after do
+          MuchStub.unstub!
+        end
+
+        subject { klazz.new(patch1) }
+
+        it "calls a Results::UnpatchedGem instance with the scan result" do
+          subject.call
+
+          value(@bundler_audit_scanner_called_with).must_equal([])
+          value(@unpatched_gem_result_called_with.first).
+            must_be_kind_of(Bundler::Audit::Scanner::UnpatchedGem)
+        end
+      end
+
+      context "GIVEN an unknown Bundler::Audit::Scanner::* type is found" do
+        before do
+          @bundler_audit_scanner_called_with = nil
+          MuchStub.stub(Bundler::Audit::Scanner, :new) { |*args|
+            @bundler_audit_scanner_called_with = args
+            FakeUnknownBundlerAuditScanner.new(*args)
+          }
+        end
+
+        subject { klazz.new(patch1) }
+
+        it "calls a Results::InsecureSource instance with the scan result" do
+          exception = value(-> { subject.call }).must_raise(ArgumentError)
+          value(exception.message).must_equal(
+            "Unexpected type: "\
+            "Pronto::BundlerAudit::ScannerTest::FakeUnknownResultType")
+
+          value(@bundler_audit_scanner_called_with).must_equal([])
+        end
+      end
+    end
+  end
+
+  class FakeInsecureSourceBundlerAuditScanner
+    def scan
+      [Bundler::Audit::Scanner::InsecureSource.new]
+    end
+  end
+
+  class FakeInsecureSourceResult
+    def initialize(*)
+    end
+
+    def call
+      # Do nothing.
+    end
+  end
+
+  class FakeUnpatchedGemBundlerAuditScanner
+    def scan
+      [Bundler::Audit::Scanner::UnpatchedGem.new]
+    end
+  end
+
+  class FakeUnpatchedGemResult
+    def initialize(*)
+    end
+
+    def call
+      # Do nothing.
+    end
+  end
+
+  class FakeUnknownBundlerAuditScanner
+    def scan
+      [FakeUnknownResultType.new]
+    end
+  end
+
+  class FakeUnknownResultType
+  end
+end
