@@ -39,7 +39,7 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    much-stub (0.1.0)
+    much-stub (0.1.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     octokit (4.14.0)
