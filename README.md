@@ -36,6 +36,8 @@ Tested MRI Ruby Versions:
 
 Once installed as a gem, this runner activate automatically when [running Pronto](https://github.com/prontolabs/pronto#usage) -- no configuration is required.
 
+Note: Unlike most Pronto runners, pronto-bundler_audit will always scan Gemfile.lock whenever Pronto is run. That is, this runner does not only run against patches/diffs made on Gemfile.lock. The point is to find issues/advisories on every Pronto run, not just when Gemfile.lock has been updated. Because that wouldn't really help us find vulnerabilities in a project's gems in a timely fashion.
+
 ### Examples
 
 #### Local Pronto Run

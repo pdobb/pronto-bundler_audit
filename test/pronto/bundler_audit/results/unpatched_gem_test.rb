@@ -14,9 +14,15 @@ class Pronto::BundlerAudit::Results::UnpatchedGemTest < Minitest::Spec
           @verbose_advisory_formatter_called_with = args
           FakeVerboseAdvisoryFormatter.new(*args)
         }
+
+        @gemfile_lock_scanner_called_with = nil
+        MuchStub.stub(base_klazz::GemfileLock::Scanner, :new) { |*args|
+          @gemfile_lock_scanner_called_with = args
+          FakeGemfileLockScanner.new(*args)
+        }
       end
 
-      subject { klazz.new(FakeScanResult.new, patch: FakePatch.new) }
+      subject { klazz.new(FakeScanResult.new) }
 
       it "returns a Pronto::Message" do
         result = subject.call
@@ -25,6 +31,9 @@ class Pronto::BundlerAudit::Results::UnpatchedGemTest < Minitest::Spec
           must_be_kind_of(FakeGem)
         value(@verbose_advisory_formatter_called_with.dig(0, :advisory)).
           must_be_kind_of(FakeAdvisory)
+
+        value(@gemfile_lock_scanner_called_with.dig(0, :gem_name)).
+          must_equal("TEST_GEM_NAME")
 
         value(result).must_be_kind_of(Pronto::Message)
         value(result.msg).must_equal("TEST_ADVISORY")
@@ -38,6 +47,15 @@ class Pronto::BundlerAudit::Results::UnpatchedGemTest < Minitest::Spec
 
     def to_s
       "TEST_ADVISORY"
+    end
+  end
+
+  class FakeGemfileLockScanner
+    def initialize(*)
+    end
+
+    def call
+      # Do nothing.
     end
   end
 end

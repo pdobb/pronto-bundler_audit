@@ -7,8 +7,6 @@ class Pronto::BundlerAudit::AuditorTest < Minitest::Spec
     let(:base_klazz) { Pronto::BundlerAudit }
     let(:klazz) { base_klazz::Auditor }
 
-    let(:patch1) { FakePatch.new }
-
     describe "#call" do
       before do
         @bundler_audit_database_called_with = nil
@@ -23,13 +21,13 @@ class Pronto::BundlerAudit::AuditorTest < Minitest::Spec
         }
       end
 
-      subject { klazz.new(patch1) }
+      subject { klazz.new }
 
       it "calls Bundler::Audit::Database.update! and Pronto::BundlerAudit::Scanner" do
         subject.call
 
         value(@bundler_audit_database_called_with).must_equal([quiet: true])
-        value(@scanner_called_with).must_equal([patch1])
+        value(@scanner_called_with).must_equal([])
       end
     end
   end

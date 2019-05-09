@@ -5,14 +5,10 @@ require_relative "results/unpatched_gem"
 
 module Pronto
   class BundlerAudit
-    # Pronto::BundlerAudit::Scanner runs runs Bundler::Audit::Scanner#scan on
-    # the given patch and then calls a {Pronto::BundlerAudit::BaseResult} based
-    # for each scan result.
+    # Pronto::BundlerAudit::Scanner runs runs Bundler::Audit::Scanner#scan and
+    # then calls a {Pronto::BundlerAudit::BaseResult} based for each scan
+    # result.
     class Scanner
-      def initialize(patch)
-        @patch = patch
-      end
-
       # @return [Array>] if no advisories were found
       # @return [Array<Pronto::Message>] if advisories were found)
       def call
@@ -34,9 +30,9 @@ module Pronto
       def match_result(scan_result)
         case scan_result
         when Bundler::Audit::Scanner::InsecureSource
-          Results::InsecureSource.new(scan_result, patch: @patch)
+          Results::InsecureSource.new(scan_result)
         when Bundler::Audit::Scanner::UnpatchedGem
-          Results::UnpatchedGem.new(scan_result, patch: @patch)
+          Results::UnpatchedGem.new(scan_result)
         else
           raise ArgumentError, "Unexpected type: #{scan_result.class}"
         end

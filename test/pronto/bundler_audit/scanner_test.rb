@@ -7,8 +7,6 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
     let(:base_klazz) { Pronto::BundlerAudit }
     let(:klazz) { base_klazz::Scanner }
 
-    let(:patch1) { FakePatch.new }
-
     describe "#call" do
       context "GIVEN a Bundler::Audit::Scanner::InsecureSource is found" do
         before do
@@ -25,7 +23,7 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
           }
         end
 
-        subject { klazz.new(patch1) }
+        subject { klazz.new }
 
         it "calls a Results::InsecureSource instance with the scan result" do
           subject.call
@@ -51,7 +49,7 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
           }
         end
 
-        subject { klazz.new(patch1) }
+        subject { klazz.new }
 
         it "calls a Results::UnpatchedGem instance with the scan result" do
           subject.call
@@ -71,7 +69,7 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
           }
         end
 
-        subject { klazz.new(patch1) }
+        subject { klazz.new }
 
         it "calls a Results::InsecureSource instance with the scan result" do
           exception = value(-> { subject.call }).must_raise(ArgumentError)

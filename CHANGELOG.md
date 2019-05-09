@@ -1,3 +1,6 @@
+### Unreleased
+- Remove patch-level processing... just always scan Gemfile.lock when this runner is invoked.
+
 ### 0.3.0 - 2019-05-03
 - Internal rewrite into smaller objects with full test coverage
 - Switch to using the verbose advisory formatter by default
