@@ -1,4 +1,4 @@
-### Unreleased
+### 0.4.0 - 2019-05-08
 - Remove patch-level processing... just always scan Gemfile.lock when this runner is invoked.
 
 ### 0.3.0 - 2019-05-03
