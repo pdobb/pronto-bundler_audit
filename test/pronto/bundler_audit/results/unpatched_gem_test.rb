@@ -10,13 +10,13 @@ class Pronto::BundlerAudit::Results::UnpatchedGemTest < Minitest::Spec
     describe "#call" do
       before do
         @verbose_advisory_formatter_called_with = nil
-        MuchStub.stub(base_klazz::AdvisoryFormatters::Verbose, :new) { |*args|
+        MuchStub.(base_klazz::AdvisoryFormatters::Verbose, :new) { |*args|
           @verbose_advisory_formatter_called_with = args
           FakeVerboseAdvisoryFormatter.new(*args)
         }
 
         @gemfile_lock_scanner_called_with = nil
-        MuchStub.stub(base_klazz::GemfileLock::Scanner, :new) { |*args|
+        MuchStub.(base_klazz::GemfileLock::Scanner, :new) { |*args|
           @gemfile_lock_scanner_called_with = args
           FakeGemfileLockScanner.new(*args)
         }

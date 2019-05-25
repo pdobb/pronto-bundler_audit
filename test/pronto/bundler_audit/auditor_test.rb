@@ -10,12 +10,12 @@ class Pronto::BundlerAudit::AuditorTest < Minitest::Spec
     describe "#call" do
       before do
         @bundler_audit_database_called_with = nil
-        MuchStub.stub(Bundler::Audit::Database, :update!) { |*args|
+        MuchStub.(Bundler::Audit::Database, :update!) { |*args|
           @bundler_audit_database_called_with = args
         }
 
         @scanner_called_with = nil
-        MuchStub.stub(base_klazz::Scanner, :new) { |*args|
+        MuchStub.(base_klazz::Scanner, :new) { |*args|
           @scanner_called_with = args
           FakeScanner.new(*args)
         }

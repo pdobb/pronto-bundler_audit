@@ -10,7 +10,7 @@ class Pronto::BundlerAuditTest < Minitest::Spec
       before do
         @fake_auditor = nil
         @auditor_called_with = nil
-        MuchStub.stub(klazz::Auditor, :new) { |*args|
+        MuchStub.(klazz::Auditor, :new) { |*args|
           @auditor_called_with = args
           @fake_auditor = FakeAuditor.new(*args)
         }

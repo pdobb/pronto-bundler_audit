@@ -11,13 +11,13 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
       context "GIVEN a Bundler::Audit::Scanner::InsecureSource is found" do
         before do
           @bundler_audit_scanner_called_with = nil
-          MuchStub.stub(Bundler::Audit::Scanner, :new) { |*args|
+          MuchStub.(Bundler::Audit::Scanner, :new) { |*args|
             @bundler_audit_scanner_called_with = args
             FakeInsecureSourceBundlerAuditScanner.new(*args)
           }
 
           @insecure_source_result_called_with = nil
-          MuchStub.stub(base_klazz::Results::InsecureSource, :new) { |*args|
+          MuchStub.(base_klazz::Results::InsecureSource, :new) { |*args|
             @insecure_source_result_called_with = args
             FakeInsecureSourceResult.new(*args)
           }
@@ -37,13 +37,13 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
       context "GIVEN a Bundler::Audit::Scanner::UnpatchedGem is found" do
         before do
           @bundler_audit_scanner_called_with = nil
-          MuchStub.stub(Bundler::Audit::Scanner, :new) { |*args|
+          MuchStub.(Bundler::Audit::Scanner, :new) { |*args|
             @bundler_audit_scanner_called_with = args
             FakeUnpatchedGemBundlerAuditScanner.new(*args)
           }
 
           @unpatched_gem_result_called_with = nil
-          MuchStub.stub(base_klazz::Results::UnpatchedGem, :new) { |*args|
+          MuchStub.(base_klazz::Results::UnpatchedGem, :new) { |*args|
             @unpatched_gem_result_called_with = args
             FakeUnpatchedGemResult.new(*args)
           }
@@ -63,7 +63,7 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
       context "GIVEN an unknown Bundler::Audit::Scanner::* type is found" do
         before do
           @bundler_audit_scanner_called_with = nil
-          MuchStub.stub(Bundler::Audit::Scanner, :new) { |*args|
+          MuchStub.(Bundler::Audit::Scanner, :new) { |*args|
             @bundler_audit_scanner_called_with = args
             FakeUnknownBundlerAuditScanner.new(*args)
           }
