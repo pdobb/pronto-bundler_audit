@@ -23,8 +23,7 @@ module Pronto
       # @return [Array>] if no advisories were found
       # @return [Array<Pronto::Message>] if advisories were found
       def run_scanner
-        scanner = Scanner.new
-        scanner.call
+        Scanner.call
       end
     end
   end

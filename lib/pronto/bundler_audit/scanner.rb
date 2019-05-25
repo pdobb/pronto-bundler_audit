@@ -9,6 +9,10 @@ module Pronto
     # then calls a {Pronto::BundlerAudit::BaseResult} based for each scan
     # result.
     class Scanner
+      def self.call
+        new.call
+      end
+
       # @return [Array>] if no advisories were found
       # @return [Array<Pronto::Message>] if advisories were found)
       def call
@@ -23,6 +27,7 @@ module Pronto
         end
       end
 
+      # Invoke the 3rd-party bundler-audit Gem.
       def run_scanner
         Bundler::Audit::Scanner.new.scan
       end
