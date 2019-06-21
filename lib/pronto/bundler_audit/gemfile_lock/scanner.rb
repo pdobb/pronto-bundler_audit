@@ -67,6 +67,10 @@ module Pronto
           def blame(*)
             nil
           end
+
+          def repo(*)
+            nil
+          end
         end
       end
     end
