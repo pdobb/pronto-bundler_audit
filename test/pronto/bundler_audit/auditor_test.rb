@@ -14,20 +14,21 @@ class Pronto::BundlerAudit::AuditorTest < Minitest::Spec
           @bundler_audit_database_called_with = args
         }
 
-        @scanner_called_with = nil
+        @pronto_bundler_audit_scanner_called_with = nil
         MuchStub.(base_klazz::Scanner, :new) { |*args|
-          @scanner_called_with = args
+          @pronto_bundler_audit_scanner_called_with = args
           FakeScanner.new(*args)
         }
       end
 
       subject { klazz.new }
 
-      it "calls Bundler::Audit::Database.update! and Pronto::BundlerAudit::Scanner" do
+      it "calls Bundler::Audit::Database.update! and "\
+         "Pronto::BundlerAudit::Scanner" do
         subject.call
 
         value(@bundler_audit_database_called_with).must_equal([quiet: true])
-        value(@scanner_called_with).must_equal([])
+        value(@pronto_bundler_audit_scanner_called_with).must_equal([])
       end
     end
   end

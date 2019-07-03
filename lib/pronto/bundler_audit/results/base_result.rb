@@ -5,6 +5,10 @@ module Pronto
     module Results
       # Pronto::BundlerAudit::Results::BaseResult is an abstract base class for
       # the various Bundler::Audit::Scanner::* issue types.
+      #
+      # Note: These result objects act as a stand-in for ::Pronto::Message
+      # objects, which are later translated into actual ::Pronto::Message
+      # objects via {Pronto::BundlerAudit::MessagesAdapter}.
       class BaseResult
         def initialize(scan_result)
           @scan_result = scan_result
@@ -12,26 +16,17 @@ module Pronto
           @advisory = scan_result.advisory
         end
 
-        def call
-          report_result
-        end
-
-        private
-
-        def report_result
+        # @return [Symbol]
+        def level
           raise NotImplementedError
         end
 
-        def build_message(message, level:, line:)
-          Message.new(
-            GEMFILE_LOCK_FILENAME,
-            line,
-            level,
-            message,
-            nil,
-            Pronto::BundlerAudit)
+        # @return [Integer, NilClass]
+        def line
+          raise NotImplementedError
         end
 
+        # @return [String]
         def message
           raise NotImplementedError
         end

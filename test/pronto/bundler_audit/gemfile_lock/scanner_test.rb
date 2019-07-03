@@ -7,6 +7,22 @@ class Pronto::BundlerAudit::GemfileLock::ScannerTest < Minitest::Spec
     let(:base_klazz) { Pronto::BundlerAudit }
     let(:klazz) { base_klazz::GemfileLock::Scanner }
 
+    describe "#initialize" do
+      context "GIVEN an unknown Gemfile.lock path" do
+        subject {
+          klazz.new(
+            gem_name: "TEST_GEM_NAME",
+            path: File.join("test", "fixtures", "UNKNOWNGemfile.lock"))
+        }
+
+        it "returns the expected line number" do
+          exception =
+            value(-> { subject.call }).must_raise(ArgumentError)
+          value(exception.message).must_equal("Gemfile.lock path not found")
+        end
+      end
+    end
+
     describe "#call" do
       context "GIVEN the Gemfile.lock has a matching gem" do
         subject {
@@ -18,8 +34,7 @@ class Pronto::BundlerAudit::GemfileLock::ScannerTest < Minitest::Spec
         it "returns the expected line number" do
           result = subject.call
 
-          value(result).must_be_kind_of(::Pronto::Git::Line)
-          value(result.new_lineno).must_equal(3)
+          value(result).must_equal(3)
         end
       end
 
@@ -30,8 +45,8 @@ class Pronto::BundlerAudit::GemfileLock::ScannerTest < Minitest::Spec
             path: File.join("test", "fixtures", "Gemfile.lock"))
         }
 
-        it "returns nil" do
-          value(subject.call).must_be_nil
+        it "returns 0" do
+          value(subject.call).must_equal(0)
         end
       end
     end
