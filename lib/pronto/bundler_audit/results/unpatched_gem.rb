@@ -8,25 +8,30 @@ require "pronto/bundler_audit/gemfile_lock/scanner"
 module Pronto
   class BundlerAudit
     module Results
-      # Pronto::BundlerAudit::Results::UnpatchedGem builds a Pronto::Message for
-      # Bundler::Audit::Scanner::UnpatchedGem issues.
+      # Pronto::BundlerAudit::Results::UnpatchedGem is a stand-in for the
+      # ::Pronto::Message object for ::Bundler::Audit::Scanner::UnpatchedGem
+      # issues.
       class UnpatchedGem < BaseResult
-        private
-
-        def report_result
-          build_message(
-            message,
-            level: :error,
-            line: find_relevant_line)
+        # @return [Symbol]
+        def level
+          :error
         end
 
-        def find_relevant_line
-          scanner = GemfileLock::Scanner.new(gem_name: @gem.name)
-          scanner.call
+        # @return [Integer]
+        def line
+          find_relevant_line_number
         end
 
+        # @return [String]
         def message
           advisory_formatter.to_s
+        end
+
+        private
+
+        # @return [Integer]
+        def find_relevant_line_number
+          Pronto::BundlerAudit::GemfileLock::Scanner.call(gem_name: @gem.name)
         end
 
         def advisory_formatter
