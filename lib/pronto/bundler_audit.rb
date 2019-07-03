@@ -5,21 +5,37 @@ require "bundler/audit/database"
 require "bundler/audit/scanner"
 
 module Pronto
-  # Pronto::BundlerAudit is a Pronto::Runner that:
+  # Pronto::BundlerAudit is a ::Pronto::Runner that:
   # 1. Updates the Ruby Advisory Database,
   # 2. Runs bundle-audit to scan the Gemfile.lock, and then
-  # 4. Returns an Array of Pronto::Message objects if any issues or advisories
-  # are found.
-  class BundlerAudit < Runner
-    GEMFILE_LOCK_FILENAME = "Gemfile.lock"
-
-    # @return [Array<Pronto::Message>] per Pronto expectation
+  # 3. Returns an Array of ::Pronto::Message objects if any issues or advisories
+  #    are found.
+  class BundlerAudit < ::Pronto::Runner
+    # @return [Array<Pronto::Message>] one for each issue found
     def run
-      auditor = Auditor.new
-      auditor.call
+      results = Auditor.call
+
+      Results::ProntoMessagesAdapter.call(results, runner: self)
+    end
+
+    # @return [Pathname] the absolute path to the current git repo / code.
+    def path
+      Pathname.new(File.expand_path("."))
+    end
+
+    def filename
+      "Gemfile.lock"
+    end
+
+    # Don't really need a commit SHA for Pronto's GitHubFormatter to work. Just
+    # need to return nil here, and in
+    # {Pronto::BundlerAudit::Results::ProntoMessagesAdapter::DeepLine#commit_sha}.
+    def commit_sha
+      nil
     end
   end
 end
 
 require "pronto/bundler_audit/version"
 require "pronto/bundler_audit/auditor"
+require "pronto/bundler_audit/results/pronto_messages_adapter"

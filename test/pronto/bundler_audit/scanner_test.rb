@@ -71,7 +71,7 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
 
         subject { klazz.new }
 
-        it "calls a Results::InsecureSource instance with the scan result" do
+        it "raises ArgumentError" do
           exception = value(-> { subject.call }).must_raise(ArgumentError)
           value(exception.message).must_equal(
             "Unexpected type: "\

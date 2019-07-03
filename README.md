@@ -45,7 +45,7 @@ Note: Unlike most Pronto runners, pronto-bundler_audit will always scan Gemfile.
 ##### Compact Mode
 
 ```bash
-$ pronto run -c=development --runner bundler_audit
+$ pronto run -c=master --runner bundler_audit
 Running Pronto::BundlerAudit
 Gemfile.lock: E: Gem: bootstrap-sass v3.4.0 | Medium Advisory: XSS vulnerability in bootstrap-sass -- CVE-2019-8331 (https://blog.getbootstrap.com/2019/02/13/bootstrap-4-3-1-and-3-4-1/) | Solution: Upgrade to >= 3.4.1.
 ```
@@ -53,7 +53,7 @@ Gemfile.lock: E: Gem: bootstrap-sass v3.4.0 | Medium Advisory: XSS vulnerability
 ##### Verbose Mode
 
 ```bash
-$ pronto run -c=development --runner bundler_audit
+$ pronto run -c=master --runner bundler_audit
 Running Pronto::BundlerAudit
 Gemfile.lock: E: Name: bootstrap-sass
 Version: 3.4.0
@@ -82,6 +82,11 @@ TODO
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+### Testing
+
+GitHub integration testing isn't easy. I have created a test app for myself at: https://github.com/pdobb/pronto-bundler_audit_test_app.
+
 
 ## TODO
 
