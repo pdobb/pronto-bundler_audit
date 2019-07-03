@@ -35,5 +35,47 @@ class Pronto::BundlerAudit::GemfileLock::ScannerTest < Minitest::Spec
         end
       end
     end
+
+    describe "Pronto::BundlerAudit::GemfileLock::Scanner::Line" do
+      let(:klazz) { base_klazz::GemfileLock::Scanner::Line }
+
+      context "GIVEN a line_number" do
+        let(:line_number) { 99 }
+
+        subject { klazz.new(line_number) }
+
+        describe "#new_lineno" do
+          it "returns the initialized line number" do
+            value(subject.new_lineno).must_equal(line_number)
+          end
+        end
+
+        describe "#position" do
+          it "returns 0" do
+            value(subject.position).must_equal(0)
+          end
+        end
+      end
+    end
+
+    describe "Pronto::BundlerAudit::GemfileLock::Scanner::Patch" do
+      let(:klazz) { base_klazz::GemfileLock::Scanner::Patch }
+
+      subject { klazz.new }
+
+      it "responds to #blame" do
+        value(subject.respond_to?(:blame)).must_equal(true)
+      end
+
+      it "responds to #repo" do
+        value(subject.respond_to?(:repo)).must_equal(true)
+      end
+
+      describe "#lines" do
+        it "returns an empty Array" do
+          value(subject.lines).must_equal([])
+        end
+      end
+    end
   end
 end

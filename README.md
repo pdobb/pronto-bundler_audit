@@ -45,7 +45,7 @@ Note: Unlike most Pronto runners, pronto-bundler_audit will always scan Gemfile.
 ##### Compact Mode
 
 ```bash
-$ pronto run -c=development --runner bundler_audit
+$ pronto run -c=master --runner bundler_audit
 Running Pronto::BundlerAudit
 Gemfile.lock: E: Gem: bootstrap-sass v3.4.0 | Medium Advisory: XSS vulnerability in bootstrap-sass -- CVE-2019-8331 (https://blog.getbootstrap.com/2019/02/13/bootstrap-4-3-1-and-3-4-1/) | Solution: Upgrade to >= 3.4.1.
 ```
@@ -53,7 +53,7 @@ Gemfile.lock: E: Gem: bootstrap-sass v3.4.0 | Medium Advisory: XSS vulnerability
 ##### Verbose Mode
 
 ```bash
-$ pronto run -c=development --runner bundler_audit
+$ pronto run -c=master --runner bundler_audit
 Running Pronto::BundlerAudit
 Gemfile.lock: E: Name: bootstrap-sass
 Version: 3.4.0

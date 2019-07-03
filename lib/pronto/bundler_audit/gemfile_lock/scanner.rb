@@ -23,6 +23,10 @@ module Pronto
           @path = path
         end
 
+        def self.call(*args)
+          new(*args).call
+        end
+
         def call
           find_relevant_line
         end
@@ -51,7 +55,7 @@ module Pronto
 
         # Pronto::BundlerAudit::GemfileLock::Scanner::Line is a stand-in for
         # the Pronto::Git::Line object.
-        class Line
+        class Line < Pronto::Git::Line
           def initialize(line_number)
             @line_number = line_number
           end
@@ -63,7 +67,7 @@ module Pronto
 
         # Pronto::BundlerAudit::GemfileLock::Scanner::Patch is a stand-in for
         # the Pronto::Git::Patch object.
-        class Patch
+        class Patch < Pronto::Git::Patch
           def blame(*)
             nil
           end

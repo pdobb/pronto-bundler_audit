@@ -6,8 +6,8 @@ require_relative "results/unpatched_gem"
 module Pronto
   class BundlerAudit
     # Pronto::BundlerAudit::Scanner runs runs Bundler::Audit::Scanner#scan and
-    # then calls a {Pronto::BundlerAudit::BaseResult} based for each scan
-    # result.
+    # then instantiates and calls an appropriate
+    # {Pronto::BundlerAudit::BaseResult} object for the given scan result type.
     class Scanner
       def self.call
         new.call
@@ -28,6 +28,12 @@ module Pronto
       end
 
       # Invoke the 3rd-party bundler-audit Gem.
+      #
+      # @return [Array] if insecure sources or if gems with an advisory are
+      #   found, the Array will contain Bundler::Audit::Scanner::InsecureSource
+      #   or Bundler::Audit::Scanner::UnpatchedGem objects, respectively.
+      #   - Bundler::Audit::Scanner::InsecureSource = Struct.new(:source)
+      #   - Bundler::Audit::Scanner::UnpatchedGem = Struct.new(:gem, :advisory)
       def run_scanner
         Bundler::Audit::Scanner.new.scan
       end

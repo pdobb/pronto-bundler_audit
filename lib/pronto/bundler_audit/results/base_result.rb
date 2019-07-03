@@ -19,17 +19,29 @@ module Pronto
         private
 
         def report_result
-          raise NotImplementedError
+          build_message(
+            message,
+            level: level,
+            line: line)
         end
 
+        # @return [::Pronto::Message] from `pronto` gem: lib/pronto/message.rb
         def build_message(message, level:, line:)
-          Message.new(
+          ::Pronto::Message.new(
             GEMFILE_LOCK_FILENAME,
             line,
             level,
             message,
             nil,
-            Pronto::BundlerAudit)
+            BundlerAudit) # From this gem: lib/pronto/bundler_audit.rb
+        end
+
+        def level
+          raise NotImplementedError
+        end
+
+        def line
+          raise NotImplementedError
         end
 
         def message

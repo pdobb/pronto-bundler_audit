@@ -10,11 +10,12 @@ module Pronto
       class InsecureSource < BaseResult
         private
 
-        def report_result
-          build_message(
-            message,
-            line: nil,
-            level: :warning)
+        def level
+          :warning
+        end
+
+        def line
+          nil
         end
 
         def message

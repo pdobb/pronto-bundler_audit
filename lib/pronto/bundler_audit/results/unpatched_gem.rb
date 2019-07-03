@@ -13,16 +13,16 @@ module Pronto
       class UnpatchedGem < BaseResult
         private
 
-        def report_result
-          build_message(
-            message,
-            level: :error,
-            line: find_relevant_line)
+        def level
+          :error
+        end
+
+        def line
+          find_relevant_line
         end
 
         def find_relevant_line
-          scanner = GemfileLock::Scanner.new(gem_name: @gem.name)
-          scanner.call
+          GemfileLock::Scanner.call(gem_name: @gem.name)
         end
 
         def message
