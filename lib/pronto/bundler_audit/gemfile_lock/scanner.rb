@@ -37,39 +37,12 @@ module Pronto
         def find_relevant_line
           return unless (found_line_number = determine_line_number)
 
-          build_pronto_git_line(found_line_number)
+          found_line_number
         end
 
         def determine_line_number
           File.foreach(@path).with_index do |line, index|
             break index.next if line.include?(@gem_name)
-          end
-        end
-
-        # @return [Pronto::Git::Line]
-        def build_pronto_git_line(line_number)
-          ::Pronto::Git::Line.new(
-            Line.new(line_number),
-            Patch.new)
-        end
-
-        # Pronto::BundlerAudit::GemfileLock::Scanner::Line is a stand-in for
-        # the Pronto::Git::Line object.
-        class Line < Pronto::Git::Line
-          def initialize(line_number)
-            @line_number = line_number
-          end
-
-          def new_lineno
-            @line_number
-          end
-        end
-
-        # Pronto::BundlerAudit::GemfileLock::Scanner::Patch is a stand-in for
-        # the Pronto::Git::Patch object.
-        class Patch < Pronto::Git::Patch
-          def blame(*)
-            nil
           end
         end
       end

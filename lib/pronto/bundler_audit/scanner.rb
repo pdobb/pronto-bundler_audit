@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "results/insecure_source"
-require_relative "results/unpatched_gem"
+require_relative "results"
 
 module Pronto
   class BundlerAudit
@@ -16,7 +15,7 @@ module Pronto
       # @return [Array>] if no advisories were found
       # @return [Array<Pronto::Message>] if advisories were found)
       def call
-        run_scan
+        run_scan || []
       end
 
       private

@@ -13,8 +13,7 @@ class Pronto::BundlerAudit::Results::InsecureSourceTest < Minitest::Spec
       it "returns a Pronto::Message" do
         result = subject.call
 
-        value(result).must_be_kind_of(Pronto::Message)
-        value(result.msg).must_equal(
+        value(result.message).must_equal(
           "Insecure Source URI found: TEST_SOURCE")
       end
     end

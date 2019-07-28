@@ -35,8 +35,7 @@ class Pronto::BundlerAudit::Results::UnpatchedGemTest < Minitest::Spec
         value(@gemfile_lock_scanner_called_with.dig(0, :gem_name)).
           must_equal("TEST_GEM_NAME")
 
-        value(result).must_be_kind_of(Pronto::Message)
-        value(result.msg).must_equal("TEST_ADVISORY")
+        value(result.message).must_equal("TEST_ADVISORY")
       end
     end
   end
