@@ -21,7 +21,7 @@ module Pronto
         end
 
         def call
-          @line ||= GemfileLock.new(gem_name: @gem.name).scan
+          @line ||= GemfileLock::Scanner.call(gem_name: @gem.name)
 
            # TODO: Switch type based on configuration options, once available.
           @message = AdvisoryFormatters::Verbose.new(gem: @gem, advisory: @advisory).to_s

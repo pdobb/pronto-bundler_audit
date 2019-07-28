@@ -47,6 +47,7 @@ GEM
     parallel (1.17.0)
     parser (2.6.3.0)
       ast (~> 2.4.0)
+    private_address_check (0.4.1)
     pronto (0.10.0)
       gitlab (~> 4.0, >= 4.0.0)
       httparty (>= 0.13.7)
@@ -94,6 +95,7 @@ DEPENDENCIES
   minitest (~> 5)
   minitest-reporters (~> 1)
   much-stub (~> 0)
+  private_address_check (= 0.4.1)
   pronto-bundler_audit!
   pry (~> 0)
   pry-byebug (~> 3)
@@ -102,4 +104,4 @@ DEPENDENCIES
   simplecov (~> 0.16)
 
 BUNDLED WITH
-   2.0.1
+   2.0.2

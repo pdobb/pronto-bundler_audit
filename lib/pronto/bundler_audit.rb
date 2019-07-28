@@ -3,6 +3,7 @@
 require "pronto"
 require "bundler/audit/database"
 require "bundler/audit/scanner"
+require 'pry'
 
 module Pronto
   # Pronto::BundlerAudit is a Pronto::Runner that:
@@ -15,9 +16,37 @@ module Pronto
 
     # @return [Array<Pronto::Message>] per Pronto expectation
     def run
-      auditor = Auditor.new
-      auditor.call
+      results = Auditor.new.call
+      binding.pry
+      results
+
+      return results unless results.size > 0
+
+      results.map do |result|
+        Message.new(GEMFILE_LOCK_FILENAME,
+                    DeepLine.new(result.line, @patches.repo.path),
+                    result.level,
+                    result.message,
+                    @patches.commit,
+                    self.class)
+      end
     end
+  end
+
+  # This piece of ugliness is here due to prontos message handling, its a bit
+  # of a mess in there and rather than deal with wrapping it, we create a class
+  # to supply it with what it wants i.e. line_number and path.
+  class DeepLine
+    attr_reader :line_number, :path
+
+    def initialize(line_number, path)
+      @path = path
+      @line_number = line_number
+    end
+
+    alias :repo :itself
+    alias :patch :itself
+    alias :new_lineno :line_number
   end
 end
 
