@@ -15,35 +15,16 @@ module Pronto
 
     # @return [Array<Pronto::Message>] per Pronto expectation
     def run
-      return [] unless (results = Auditor.new.call) && results.size > 0
+      results = Auditor.new.call
+      return [] unless results && results.size > 0
 
-      results.map do |result|
-        Message.new(GEMFILE_LOCK_FILENAME,
-                    DeepLine.new(result.line, @patches.repo.path),
-                    result.level,
-                    result.message,
-                    @patches.commit,
-                    self.class)
-      end
+      Results::Converter
+        .new(results, @patches.commit, @patches.repo.path)
+        .call
     end
-  end
-
-  # This piece of ugliness is here due to prontos message handling, its a bit
-  # of a mess in there and rather than deal with wrapping it, we create a class
-  # to supply it with what it really wants i.e. line_number and repo path.
-  class DeepLine
-    attr_reader :line_number, :path
-
-    def initialize(line_number, path)
-      @path = path
-      @line_number = line_number
-    end
-
-    alias :repo :itself
-    alias :patch :itself
-    alias :new_lineno :line_number
   end
 end
 
 require "pronto/bundler_audit/version"
 require "pronto/bundler_audit/auditor"
+require "pronto/bundler_audit/results/converter"

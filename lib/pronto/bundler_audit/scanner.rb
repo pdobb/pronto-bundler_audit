@@ -13,7 +13,8 @@ module Pronto
       end
 
       # @return [Array>] if no advisories were found
-      # @return [Array<Pronto::Message>] if advisories were found)
+      # @return [Array<Pronto::BundlerAudit::Results::*Result>] if advisories were found
+      # where Result is one of InsecureSource or UnpatchedGem.
       def call
         run_scan || []
       end

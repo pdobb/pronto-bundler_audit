@@ -28,17 +28,10 @@ module Pronto
         end
 
         def call
-          find_relevant_line
+          determine_line_number
         end
 
         private
-
-        # @return [Pronto::Git::Line]
-        def find_relevant_line
-          return unless (found_line_number = determine_line_number)
-
-          found_line_number
-        end
 
         def determine_line_number
           File.foreach(@path).with_index do |line, index|
