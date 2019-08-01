@@ -3,6 +3,6 @@
 module Pronto
   # Pronto::BundlerAuditVersion
   module BundlerAuditVersion
-    VERSION = "0.5.0.pre2"
+    VERSION = "0.5.0"
   end
 end
