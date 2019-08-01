@@ -6,37 +6,54 @@ require_relative "results/unpatched_gem"
 module Pronto
   class BundlerAudit
     # Pronto::BundlerAudit::Scanner runs runs Bundler::Audit::Scanner#scan and
-    # then calls a {Pronto::BundlerAudit::BaseResult} based for each scan
-    # result.
+    # then instantiates and calls an appropriate
+    # {Pronto::BundlerAudit::BaseResult} object for the given scan result type.
     class Scanner
-      def self.call
-        new.call
+      def self.call(*args)
+        new(*args).call
       end
 
-      # @return [Array>] if no advisories were found
-      # @return [Array<Pronto::Message>] if advisories were found)
+      # @return [Array<>] if no issues were found
+      # @return [Array<Pronto::BundlerAudit::Results::BaseResult>] if unpatched
+      #   gem sources or if advisories were found
       def call
         run_scan
       end
 
       private
 
+      # @return [Array<>] if no issues were found
+      # @return [Array<Pronto::BundlerAudit::Results::BaseResult>]
       def run_scan
         run_scanner.map do |scan_result|
-          match_result(scan_result).call
+          match_result(scan_result)
         end
       end
 
       # Invoke the 3rd-party bundler-audit Gem.
+      #
+      # @return [Array] if insecure sources are found or if gems with an
+      #   advisory are found, the Array will contain
+      #   ::Bundler::Audit::Scanner::InsecureSource
+      #   or ::Bundler::Audit::Scanner::UnpatchedGem objects, respectively.
+      #     - Bundler::Audit::Scanner::InsecureSource = Struct.new(:source)
+      #     - Bundler::Audit::Scanner::UnpatchedGem = Struct.new(:gem, :advisory)
       def run_scanner
-        Bundler::Audit::Scanner.new.scan
+        ::Bundler::Audit::Scanner.new.scan
       end
 
+      # Convert the passed in `scan_result` class/value into a local Results::*
+      # class/value.
+      #
+      # @param scan_result [::Bundler::Audit::Scanner::*] from the bundler-audit
+      #   Gem
+      #
+      # @return [Pronto::BundlerAudit::Results::BaseResult]
       def match_result(scan_result)
         case scan_result
-        when Bundler::Audit::Scanner::InsecureSource
+        when ::Bundler::Audit::Scanner::InsecureSource
           Results::InsecureSource.new(scan_result)
-        when Bundler::Audit::Scanner::UnpatchedGem
+        when ::Bundler::Audit::Scanner::UnpatchedGem
           Results::UnpatchedGem.new(scan_result)
         else
           raise ArgumentError, "Unexpected type: #{scan_result.class}"

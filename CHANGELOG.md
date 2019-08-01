@@ -1,3 +1,8 @@
+### 0.5.0 - 2019-07-31
+- Fix Pronto -> GitHub reporting errors
+  - Thanks to Inestor for the [bug report](https://github.com/pdobb/pronto-bundler_audit/issues/2).
+  - Credit for the approach taken here goes to to os6sense and [his hard work](https://github.com/pdobb/pronto-bundler_audit/pull/4/files)
+
 ### 0.4.0 - 2019-05-08
 - Remove patch-level processing... just always scan Gemfile.lock when this runner is invoked.
 
@@ -15,7 +20,6 @@
 ### 0.1.1 - 2019-04-29
 - Add line number to Pronto::Message; fixes GitHub API usage error when attempting to add errors to PR comments
 - Add gem version requirements to gemspec
-
 
 ### 0.1.0 - 2019-04-28
 - Initial release!

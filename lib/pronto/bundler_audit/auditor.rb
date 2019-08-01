@@ -5,10 +5,14 @@ require "pronto/bundler_audit/scanner"
 module Pronto
   class BundlerAudit
     # Pronto::BundlerAudit::Auditor:
-    # 1. updates the local ruby security database, and then
-    # 2. runs {Pronto::BundlerAudit::Scanner#call}.
+    # 1. Updates the local ruby security database, and then
+    # 2. Runs {::Pronto::BundlerAudit::Scanner#call}.
     class Auditor
-      # @return (see: #run_scan)
+      def self.call(*args)
+        new(*args).call
+      end
+
+      # @return (see: #run_scanner)
       def call
         update_ruby_advisory_db
         run_scanner
@@ -20,8 +24,9 @@ module Pronto
         Bundler::Audit::Database.update!(quiet: true)
       end
 
-      # @return [Array>] if no advisories were found
-      # @return [Array<Pronto::Message>] if advisories were found
+      # @return [Array<>] if no issues were found
+      # @return [Array<Pronto::BundlerAudit::Results::BaseResult>] if unpatched
+      #   gem sources or if advisories were found
       def run_scanner
         Scanner.call
       end
