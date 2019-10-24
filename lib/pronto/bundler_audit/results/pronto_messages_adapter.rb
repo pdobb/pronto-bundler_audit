@@ -40,7 +40,7 @@ module Pronto
             @path = path
           end
 
-          # Since we're not passing a commit SHA into ::Proton::Message.new,
+          # Since we're not passing a commit SHA into ::Pronto::Message.new,
           # Pronto will try calling #commit_sha on the (this) Line object.
           def commit_sha
             nil

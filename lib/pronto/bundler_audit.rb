@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 require "pronto"
+
+# Pronto gem overrides (use sparingly):
+require "formatter/github_pull_request_review_formatter"
+
 require "bundler/audit/database"
 require "bundler/audit/scanner"
 
