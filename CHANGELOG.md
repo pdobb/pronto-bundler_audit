@@ -1,3 +1,9 @@
+### 0.5.1 - 2019-10-24
+- Fix Pronto -> GitHub reporting errors
+  - If Gemfile.lock is not in the PR then Pronto would fail when attempting to create a comment on the Gemfile.lock file withing the PR.
+    - Note: This issue isn't fully fixed yet, but at least doesn't fail flat out.
+      - To fully fix: would like to still add a PR-level comment with CVE issue(s) instead of requiring the user to dig into their CI output to see the CVE issue(s).
+
 ### 0.5.0 - 2019-07-31
 - Fix Pronto -> GitHub reporting errors
   - Thanks to Inestor for the [bug report](https://github.com/pdobb/pronto-bundler_audit/issues/2).
