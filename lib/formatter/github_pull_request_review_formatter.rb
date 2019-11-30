@@ -3,7 +3,9 @@ module Pronto
     # Pronto::Formatter::GithubPullRequestReviewFormatter comes from the
     # Pronto gem itself.
     #
-    # The methods below are a feature overrides to:
+    # # Note: Ignore `method redefined` warnings on these methods.
+    #
+    # The methods below are feature overrides to:
     #   1. prevent the {#line_number} class from failing if none of the patches
     #      contain the `message.line.new_lineno` value found. Which can happen
     #      in the context of this pronto-bundler audit gem since we aren't

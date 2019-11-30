@@ -33,15 +33,32 @@ Tested MRI Ruby Versions:
 
 ## Usage
 
-Once installed as a gem, this runner activate automatically when [running Pronto](https://github.com/prontolabs/pronto#usage) -- no configuration is required.
+Once installed as a gem, this runner activates automatically when [running Pronto](https://github.com/prontolabs/pronto#usage) -- no configuration is required.
 
-Note: Unlike most Pronto runners, pronto-bundler_audit will always scan Gemfile.lock whenever Pronto is run. That is, this runner does not only run against patches/diffs made on Gemfile.lock. The point is to find issues/advisories on every Pronto run, not just when Gemfile.lock has been updated. Because that wouldn't really help us find vulnerabilities in a project's gems in a timely fashion.
+Note: Unlike most Pronto runners, pronto-bundler_audit will always scan Gemfile.lock whenever Pronto is run. That is, this runner does not only run against patches/diffs made on Gemfile.lock. The point is to find issues/advisories on every Pronto run, not just when Gemfile.lock has been updated. Because, otherwise, this gem  wouldn't really help us find vulnerabilities in a project's gems in a timely fashion.
 
-### Examples
+## Configuration
 
-#### Local Pronto Run
+Configuration of the pronto-bundler_audit gem is available by creating a YAML file on the project root, called `.pronto-bundler_audit.yml`.
 
-##### Compact Mode
+Available configuration options include:
+
+```yaml
+Advisories:
+  # Send the following advisory names to bundler_audit's `ignored` option.
+  Ignore:
+    - CVE-YYYY-####1
+    - CVE-YYYY-####2
+```
+
+The above acts the same as running `bundle-audit check --ignore CVE-YYYY-####1 CVE-YYYY-####2`.
+
+
+## Examples
+
+### Local Pronto Run
+
+#### Compact Mode
 
 ```bash
 $ pronto run -c=master --runner bundler_audit
@@ -49,7 +66,7 @@ Running Pronto::BundlerAudit
 Gemfile.lock: E: Gem: bootstrap-sass v3.4.0 | Medium Advisory: XSS vulnerability in bootstrap-sass -- CVE-2019-8331 (https://blog.getbootstrap.com/2019/02/13/bootstrap-4-3-1-and-3-4-1/) | Solution: Upgrade to >= 3.4.1.
 ```
 
-##### Verbose Mode
+#### Verbose Mode
 
 ```bash
 $ pronto run -c=master --runner bundler_audit
@@ -74,11 +91,11 @@ Solution: Upgrade to >= 3.4.1.
 
 #### Github Pull Request - Comments
 
-##### Verbose Mode
+#### Verbose Mode
 
 ![Github Comment - Verbose](images/github-comment-verbose.png)
 
-##### Compact Mode
+#### Compact Mode
 
 Note: Not yet available by configuration.
 

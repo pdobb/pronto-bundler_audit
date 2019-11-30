@@ -17,6 +17,10 @@ module Pronto
   class BundlerAudit < ::Pronto::Runner
     GEMFILE_LOCK_FILENAME = "Gemfile.lock"
 
+    def self.configuration
+      @configuration ||= Pronto::BundlerAudit::Configuration.new
+    end
+
     # @return [Array<Pronto::Message>] one for each issue found
     def run
       results = Auditor.call
@@ -42,6 +46,7 @@ module Pronto
   end
 end
 
+require "pronto/bundler_audit/configuration"
 require "pronto/bundler_audit/version"
 require "pronto/bundler_audit/auditor"
 require "pronto/bundler_audit/results/pronto_messages_adapter"
