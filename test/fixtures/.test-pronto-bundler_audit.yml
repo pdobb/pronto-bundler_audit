@@ -1,0 +1,5 @@
+Advisories:
+  # Send the following advisory names to bundler_audit's `ignored` option.
+  Ignore:
+    - CVE-YYYY-####1
+    - CVE-YYYY-####2

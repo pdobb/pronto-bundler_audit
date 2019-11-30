@@ -84,7 +84,7 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
   end
 
   class FakeInsecureSourceBundlerAuditScanner
-    def scan
+    def scan(*)
       [Bundler::Audit::Scanner::InsecureSource.new]
     end
   end
@@ -99,7 +99,7 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
   end
 
   class FakeUnpatchedGemBundlerAuditScanner
-    def scan
+    def scan(*)
       [Bundler::Audit::Scanner::UnpatchedGem.new]
     end
   end
@@ -114,7 +114,7 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
   end
 
   class FakeUnknownBundlerAuditScanner
-    def scan
+    def scan(*)
       [FakeUnknownResultType.new]
     end
   end

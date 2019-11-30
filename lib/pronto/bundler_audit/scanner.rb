@@ -2,6 +2,7 @@
 
 require_relative "results/insecure_source"
 require_relative "results/unpatched_gem"
+require "yaml"
 
 module Pronto
   class BundlerAudit
@@ -32,14 +33,19 @@ module Pronto
 
       # Invoke the 3rd-party bundler-audit Gem.
       #
+      # @param ignore_advisories [Array<String>] the advisories to be ignored
+      #   by the bundler_audit scan
+      #
       # @return [Array] if insecure sources are found or if gems with an
       #   advisory are found, the Array will contain
       #   ::Bundler::Audit::Scanner::InsecureSource
       #   or ::Bundler::Audit::Scanner::UnpatchedGem objects, respectively.
       #     - Bundler::Audit::Scanner::InsecureSource = Struct.new(:source)
       #     - Bundler::Audit::Scanner::UnpatchedGem = Struct.new(:gem, :advisory)
-      def run_scanner
-        ::Bundler::Audit::Scanner.new.scan
+      def run_scanner(
+            ignored_advisories:
+              Pronto::BundlerAudit.configuration.ignored_advisories)
+        ::Bundler::Audit::Scanner.new.scan(ignore: ignored_advisories)
       end
 
       # Convert the passed in `scan_result` class/value into a local Results::*
