@@ -1,3 +1,7 @@
+### 0.6.0 - 2019-11-30
+- [#7](https://github.com/pdobb/pronto-bundler_audit/pull/7) Add configurability via .pronto-bundler_audit.yml file
+  - For now, the only configuration available is ignoring advisories in the bundler_audit scan. See the [README](https://github.com/pdobb/pronto-bundler_audit#configuration).
+
 ### 0.5.1 - 2019-10-24
 - Fix Pronto -> GitHub reporting errors
   - If Gemfile.lock is not in the PR then Pronto would fail when attempting to create a comment on the Gemfile.lock file withing the PR.
