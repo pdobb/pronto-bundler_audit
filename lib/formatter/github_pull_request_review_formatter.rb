@@ -15,7 +15,7 @@ module Pronto
     #      traditional Pull Request Review comment style.
     class GithubPullRequestReviewFormatter
       def submit_comments(client, comments)
-        client.create_pull_request_review(comments)
+        client.publish_pull_request_comments(comments)
       rescue Octokit::UnprocessableEntity, HTTParty::Error => e
         # If Gemfile.lock doesn't exist in the PR, then attempt a non-review
         # style comment instead (which doesn't attempt to reference a file
