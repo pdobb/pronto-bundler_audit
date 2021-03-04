@@ -1,3 +1,8 @@
+# No longer being maintained / Maintainer needed
+
+Unfortunately, I (@pdobb) am no longer working on any projects and, therefore, don't have a good way to test fixes. There are probably numerous fixes needed right now as pronto 0.11.0 has been recently released and since there is no proper API for using pronto's internals, each update to pronto will likely mean breaking changes in gems such as this one. But, probably... especially this one. This gem attempts to do something that pronto isn't made for: examine code from a file that isn't necessarily contained within the diff that pronto is analyzing. Most of pronto-bundler_audit is attempting to solve this problem by overriding the pronto API  with custom adapter objects standing in for Pronto-native object.
+
+
 [![Gem Version](https://badge.fury.io/rb/pronto-bundler_audit.svg)](https://badge.fury.io/rb/pronto-bundler_audit)
 [![Build Status](https://travis-ci.org/pdobb/pronto-bundler_audit.svg?branch=master)](https://travis-ci.org/pdobb/pronto-bundler_audit)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7ac01a6a6eace46487d9/maintainability)](https://codeclimate.com/github/pdobb/pronto-bundler_audit/maintainability)
