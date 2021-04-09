@@ -1,3 +1,7 @@
+### 0.6.1 - 2021-04-08
+- [#7](https://github.com/pdobb/pronto-bundler_audit/pull/10) Pronto 0.11.0 compatibility
+  - Fix Pronto -> GitHub call :publish_pull_request_comments instead of :create_pull_request_review
+
 ### 0.6.0 - 2019-11-30
 - [#7](https://github.com/pdobb/pronto-bundler_audit/pull/7) Add configurability via .pronto-bundler_audit.yml file
   - For now, the only configuration available is ignoring advisories in the bundler_audit scan. See the [README](https://github.com/pdobb/pronto-bundler_audit#configuration).
