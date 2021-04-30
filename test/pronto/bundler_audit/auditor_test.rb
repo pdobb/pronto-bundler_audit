@@ -4,8 +4,8 @@ require "test_helper"
 
 class Pronto::BundlerAudit::AuditorTest < Minitest::Spec
   describe "Pronto::BundlerAudit::Auditor" do
-    let(:base_klazz) { Pronto::BundlerAudit }
-    let(:klazz) { base_klazz::Auditor }
+    let(:unit_base_class) { Pronto::BundlerAudit }
+    let(:unit_class) { unit_base_class::Auditor }
 
     describe "#call" do
       before do
@@ -15,13 +15,13 @@ class Pronto::BundlerAudit::AuditorTest < Minitest::Spec
         }
 
         @pronto_bundler_audit_scanner_called_with = nil
-        MuchStub.(base_klazz::Scanner, :new) { |*args|
+        MuchStub.(unit_base_class::Scanner, :new) { |*args|
           @pronto_bundler_audit_scanner_called_with = args
           FakeScanner.new(*args)
         }
       end
 
-      subject { klazz.new }
+      subject { unit_class.new }
 
       it "calls Bundler::Audit::Database.update! and "\
          "Pronto::BundlerAudit::Scanner" do

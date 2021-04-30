@@ -4,7 +4,7 @@ require "test_helper"
 
 class Pronto::BundlerAuditVersionTest < Minitest::Spec
   describe "Pronto::BundlerAuditVersion" do
-    let(:klazz) { Pronto::BundlerAuditVersion }
+    let(:unit_class) { Pronto::BundlerAuditVersion }
 
     describe "::VERSION" do
       it "is not nil" do

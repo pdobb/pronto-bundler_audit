@@ -4,18 +4,18 @@ require "test_helper"
 
 class Pronto::BundlerAuditTest < Minitest::Spec
   describe "Pronto::BundlerAudit" do
-    let(:klazz) { Pronto::BundlerAudit }
+    let(:unit_class) { Pronto::BundlerAudit }
 
     before do
       @pronto_bundler_audit_auditor_called_with = nil
-      MuchStub.(klazz::Auditor, :new) { |*args|
+      MuchStub.(unit_class::Auditor, :new) { |*args|
         @pronto_bundler_audit_auditor_called_with = args
         FakeAuditor.new(*args)
       }
     end
 
     describe "#run" do
-      subject { klazz.new([]) }
+      subject { unit_class.new([]) }
 
       it "calls Pronto::BundlerAudit::Auditor" do
         results = subject.run
@@ -29,7 +29,7 @@ class Pronto::BundlerAuditTest < Minitest::Spec
     end
 
     describe "#path" do
-      subject { klazz.new([]) }
+      subject { unit_class.new([]) }
 
       it "returns the expected Pathname" do
         value(subject.path).must_be_kind_of(Pathname)
@@ -38,7 +38,7 @@ class Pronto::BundlerAuditTest < Minitest::Spec
     end
 
     describe "#filename" do
-      subject { klazz.new([]) }
+      subject { unit_class.new([]) }
 
       it "returns 'Gemfile.lock'" do
         value(subject.filename).must_equal("Gemfile.lock")
@@ -46,7 +46,7 @@ class Pronto::BundlerAuditTest < Minitest::Spec
     end
 
     describe "#commit_sha" do
-      subject { klazz.new([]) }
+      subject { unit_class.new([]) }
 
       it "returns nil" do
         value(subject.commit_sha).must_be_nil

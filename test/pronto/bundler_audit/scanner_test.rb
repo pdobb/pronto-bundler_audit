@@ -4,8 +4,8 @@ require "test_helper"
 
 class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
   describe "Pronto::BundlerAudit::Scanner" do
-    let(:base_klazz) { Pronto::BundlerAudit }
-    let(:klazz) { base_klazz::Scanner }
+    let(:unit_base_class) { Pronto::BundlerAudit }
+    let(:unit_class) { unit_base_class::Scanner }
 
     describe "#call" do
       context "GIVEN a Bundler::Audit::Scanner::InsecureSource is found" do
@@ -17,13 +17,13 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
           }
 
           @insecure_source_result_called_with = nil
-          MuchStub.(base_klazz::Results::InsecureSource, :new) { |*args|
+          MuchStub.(unit_base_class::Results::InsecureSource, :new) { |*args|
             @insecure_source_result_called_with = args
             FakeInsecureSourceResult.new(*args)
           }
         end
 
-        subject { klazz.new }
+        subject { unit_class.new }
 
         it "calls a Results::InsecureSource instance with the scan result" do
           subject.call
@@ -43,13 +43,13 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
           }
 
           @unpatched_gem_result_called_with = nil
-          MuchStub.(base_klazz::Results::UnpatchedGem, :new) { |*args|
+          MuchStub.(unit_base_class::Results::UnpatchedGem, :new) { |*args|
             @unpatched_gem_result_called_with = args
             FakeUnpatchedGemResult.new(*args)
           }
         end
 
-        subject { klazz.new }
+        subject { unit_class.new }
 
         it "calls a Results::UnpatchedGem instance with the scan result" do
           subject.call
@@ -69,7 +69,7 @@ class Pronto::BundlerAudit::ScannerTest < Minitest::Spec
           }
         end
 
-        subject { klazz.new }
+        subject { unit_class.new }
 
         it "raises ArgumentError" do
           exception = value(-> { subject.call }).must_raise(ArgumentError)

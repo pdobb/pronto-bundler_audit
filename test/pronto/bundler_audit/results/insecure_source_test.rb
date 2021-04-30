@@ -4,11 +4,11 @@ require "test_helper"
 
 class Pronto::BundlerAudit::Results::InsecureSourceTest < Minitest::Spec
   describe "Pronto::BundlerAudit::Results::InsecureSource" do
-    let(:base_klazz) { Pronto::BundlerAudit }
-    let(:klazz) { base_klazz::Results::InsecureSource }
+    let(:unit_base_class) { Pronto::BundlerAudit }
+    let(:unit_class) { unit_base_class::Results::InsecureSource }
 
     describe "#level" do
-      subject { klazz.new(FakeScanResult.new) }
+      subject { unit_class.new(FakeScanResult.new) }
 
       it "returns :warning" do
         value(subject.level).must_equal(:warning)
@@ -16,7 +16,7 @@ class Pronto::BundlerAudit::Results::InsecureSourceTest < Minitest::Spec
     end
 
     describe "#line" do
-      subject { klazz.new(FakeScanResult.new) }
+      subject { unit_class.new(FakeScanResult.new) }
 
       it "returns nil" do
         result = subject.line
@@ -26,7 +26,7 @@ class Pronto::BundlerAudit::Results::InsecureSourceTest < Minitest::Spec
     end
 
     describe "#message" do
-      subject { klazz.new(FakeScanResult.new) }
+      subject { unit_class.new(FakeScanResult.new) }
 
       it "returns a Pronto::Message" do
         result = subject.message

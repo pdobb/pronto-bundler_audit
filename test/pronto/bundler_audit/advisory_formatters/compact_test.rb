@@ -4,11 +4,11 @@ require "test_helper"
 
 class Pronto::BundlerAudit::AdvisoryFormatters::CompactTest < Minitest::Spec
   describe "Pronto::BundlerAudit::AdvisoryFormatters::Compact" do
-    let(:base_klazz) { Pronto::BundlerAudit }
-    let(:klazz) { base_klazz::AdvisoryFormatters::Compact }
+    let(:unit_base_class) { Pronto::BundlerAudit }
+    let(:unit_class) { unit_base_class::AdvisoryFormatters::Compact }
 
     describe "#to_s" do
-      subject { klazz.new(gem: FakeGem.new, advisory: FakeAdvisory.new) }
+      subject { unit_class.new(gem: FakeGem.new, advisory: FakeAdvisory.new) }
 
       it "returns the expected String" do
         result = subject.to_s

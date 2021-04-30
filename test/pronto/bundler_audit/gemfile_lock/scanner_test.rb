@@ -4,13 +4,13 @@ require "test_helper"
 
 class Pronto::BundlerAudit::GemfileLock::ScannerTest < Minitest::Spec
   describe "Pronto::BundlerAudit::GemfileLock::Scanner" do
-    let(:base_klazz) { Pronto::BundlerAudit }
-    let(:klazz) { base_klazz::GemfileLock::Scanner }
+    let(:unit_base_class) { Pronto::BundlerAudit }
+    let(:unit_class) { unit_base_class::GemfileLock::Scanner }
 
     describe "#initialize" do
       context "GIVEN an unknown Gemfile.lock path" do
         subject {
-          klazz.new(
+          unit_class.new(
             gem_name: "TEST_GEM_NAME",
             path: File.join("test", "fixtures", "UNKNOWNGemfile.lock"))
         }
@@ -26,7 +26,7 @@ class Pronto::BundlerAudit::GemfileLock::ScannerTest < Minitest::Spec
     describe "#call" do
       context "GIVEN the Gemfile.lock has a matching gem" do
         subject {
-          klazz.new(
+          unit_class.new(
             gem_name: "TEST_GEM_NAME",
             path: File.join("test", "fixtures", "Gemfile.lock"))
         }
@@ -40,7 +40,7 @@ class Pronto::BundlerAudit::GemfileLock::ScannerTest < Minitest::Spec
 
       context "GIVEN the Gemfile.lock doesn't have a matching gem" do
         subject {
-          klazz.new(
+          unit_class.new(
             gem_name: "UNKNOWN_GEM",
             path: File.join("test", "fixtures", "Gemfile.lock"))
         }

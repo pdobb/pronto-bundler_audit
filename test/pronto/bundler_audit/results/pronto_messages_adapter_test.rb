@@ -4,11 +4,11 @@ require "test_helper"
 
 class Pronto::BundlerAudit::Results::ProntoMessagesAdapterTest < Minitest::Spec
   describe "Pronto::BundlerAudit::Results::ProntoMessagesAdapter" do
-    let(:base_klazz) { Pronto::BundlerAudit }
-    let(:klazz) { base_klazz::Results::ProntoMessagesAdapter }
+    let(:unit_base_class) { Pronto::BundlerAudit }
+    let(:unit_class) { unit_base_class::Results::ProntoMessagesAdapter }
 
     describe ".call" do
-      subject { klazz.new(results, runner: FakeRunner.new) }
+      subject { unit_class.new(results, runner: FakeRunner.new) }
 
       context "GIVEN results = nil" do
         let(:results) { nil }
@@ -42,16 +42,20 @@ class Pronto::BundlerAudit::Results::ProntoMessagesAdapterTest < Minitest::Spec
           result = results.sample
           value(result).must_be_kind_of(::Pronto::Message)
           value(result.level).must_equal(:error)
-          value(result.line).must_be_kind_of(klazz::DeepLine)
+          value(result.line).must_be_kind_of(unit_class::DeepLine)
           value(result.msg).must_equal("FAKE_RESULT_MESSAGE")
         end
       end
     end
 
     describe "Pronto::BundlerAudit::Results::ProntoMessagesAdapter::DeepLine" do
-      let(:klazz) { base_klazz::Results::ProntoMessagesAdapter::DeepLine }
+      let(:unit_class) {
+        unit_base_class::Results::ProntoMessagesAdapter::DeepLine
+      }
 
-      subject { klazz.new(line_number: 99, path: Pathname.new("TEST_PATH")) }
+      subject {
+        unit_class.new(line_number: 99, path: Pathname.new("TEST_PATH"))
+      }
 
       describe "#line_number" do
         it "returns the expected Integer" do

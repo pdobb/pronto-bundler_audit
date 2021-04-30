@@ -4,11 +4,11 @@ require "test_helper"
 
 class Pronto::BundlerAudit::Results::UnpatchedGemTest < Minitest::Spec
   describe "Pronto::BundlerAudit::Results::UnpatchedGem" do
-    let(:base_klazz) { Pronto::BundlerAudit }
-    let(:klazz) { base_klazz::Results::UnpatchedGem }
+    let(:unit_base_class) { Pronto::BundlerAudit }
+    let(:unit_class) { unit_base_class::Results::UnpatchedGem }
 
     describe "#level" do
-      subject { klazz.new(FakeScanResult.new) }
+      subject { unit_class.new(FakeScanResult.new) }
 
       it "returns :error" do
         value(subject.level).must_equal(:error)
@@ -18,13 +18,13 @@ class Pronto::BundlerAudit::Results::UnpatchedGemTest < Minitest::Spec
     describe "#line" do
       before do
         @gemfile_lock_scanner_called_with = nil
-        MuchStub.(base_klazz::GemfileLock::Scanner, :new) { |*args|
+        MuchStub.(unit_base_class::GemfileLock::Scanner, :new) { |*args|
           @gemfile_lock_scanner_called_with = args
           FakeGemfileLockScanner.new(*args)
         }
       end
 
-      subject { klazz.new(FakeScanResult.new) }
+      subject { unit_class.new(FakeScanResult.new) }
 
       it "returns an Integer" do
         result = subject.line
@@ -40,13 +40,13 @@ class Pronto::BundlerAudit::Results::UnpatchedGemTest < Minitest::Spec
     describe "#message" do
       before do
         @verbose_advisory_formatter_called_with = nil
-        MuchStub.(base_klazz::AdvisoryFormatters::Verbose, :new) { |*args|
+        MuchStub.(unit_base_class::AdvisoryFormatters::Verbose, :new) { |*args|
           @verbose_advisory_formatter_called_with = args
           FakeVerboseAdvisoryFormatter.new(*args)
         }
       end
 
-      subject { klazz.new(FakeScanResult.new) }
+      subject { unit_class.new(FakeScanResult.new) }
 
       it "returns a String" do
         result = subject.message
