@@ -25,7 +25,9 @@ module Pronto
     def run
       results = Auditor.call
 
-      Results::ProntoMessagesAdapter.call(results, runner: self)
+      Pronto::BundlerAudit::Results::ProntoMessagesAdapter.call(
+        results,
+        runner: self)
     end
 
     # @return [Pathname] the absolute path to the current git repo / code.

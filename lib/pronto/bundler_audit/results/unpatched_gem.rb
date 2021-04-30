@@ -36,7 +36,9 @@ module Pronto
 
         def advisory_formatter
           # TODO: Switch type based on configuration options, once available.
-          AdvisoryFormatters::Verbose.new(gem: @gem, advisory: @advisory)
+          Pronto::BundlerAudit::AdvisoryFormatters::Verbose.new(
+            gem: @gem,
+            advisory: @advisory)
         end
       end
     end

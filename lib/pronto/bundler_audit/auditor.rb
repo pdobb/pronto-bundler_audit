@@ -21,14 +21,14 @@ module Pronto
       private
 
       def update_ruby_advisory_db
-        Bundler::Audit::Database.update!(quiet: true)
+        ::Bundler::Audit::Database.update!(quiet: true)
       end
 
       # @return [Array<>] if no issues were found
       # @return [Array<Pronto::BundlerAudit::Results::BaseResult>] if unpatched
       #   gem sources or if advisories were found
       def run_scanner
-        Scanner.call
+        Pronto::BundlerAudit::Scanner.call
       end
     end
   end

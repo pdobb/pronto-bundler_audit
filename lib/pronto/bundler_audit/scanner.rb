@@ -57,10 +57,10 @@ module Pronto
       # @return [Pronto::BundlerAudit::Results::BaseResult]
       def match_result(scan_result)
         case scan_result
-        when ::Bundler::Audit::Scanner::InsecureSource
-          Results::InsecureSource.new(scan_result)
-        when ::Bundler::Audit::Scanner::UnpatchedGem
-          Results::UnpatchedGem.new(scan_result)
+        when ::Bundler::Audit::Results::InsecureSource
+          Pronto::BundlerAudit::Results::InsecureSource.new(scan_result)
+        when ::Bundler::Audit::Results::UnpatchedGem
+          Pronto::BundlerAudit::Results::UnpatchedGem.new(scan_result)
         else
           raise ArgumentError, "Unexpected type: #{scan_result.class}"
         end
