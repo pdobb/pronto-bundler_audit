@@ -46,6 +46,10 @@ module Pronto
             nil
           end
 
+          def line
+            self
+          end
+
           alias_method :new_lineno, :line_number
           alias_method :repo, :itself
           alias_method :patch, :itself
