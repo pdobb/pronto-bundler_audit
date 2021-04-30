@@ -1,6 +1,14 @@
-### 0.6.1 - 2021-04-08
-- [#7](https://github.com/pdobb/pronto-bundler_audit/pull/10) Pronto 0.11.0 compatibility
+### 0.7.0 - 2021-04-29
+- [#11](https://github.com/pdobb/pronto-bundler_audit/pull/11)
+  - Attempted Fix for `NoMethodError: undefined method 'line' for #<Pronto::BundlerAudit::Results::ProntoMessagesAdapter::DeepLine...>`
+- [#10](https://github.com/pdobb/pronto-bundler_audit/pull/10) Pronto 0.11.0 compatibility
   - Fix Pronto -> GitHub call :publish_pull_request_comments instead of :create_pull_request_review
+
+#### NOTE:
+This version requires pronto 0.11+ and bundler-audit 0.8+. Use v0.6.0 if you cannot update pronto and bundler-audit at this time.
+
+### 0.6.1 - 2021-04-08
+- Unreleased... see 0.7.0 instead.
 
 ### 0.6.0 - 2019-11-30
 - [#7](https://github.com/pdobb/pronto-bundler_audit/pull/7) Add configurability via .pronto-bundler_audit.yml file

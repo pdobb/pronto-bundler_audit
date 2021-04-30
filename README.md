@@ -1,4 +1,4 @@
-# No longer being maintained / Maintainer needed
+# Maintainer needed
 
 Unfortunately, I (@pdobb) am no longer working on any projects and, therefore, don't have a good way to test fixes. There are probably numerous fixes needed right now as pronto 0.11.0 has been recently released and since there is no proper API for using pronto's internals, each update to pronto will likely mean breaking changes in gems such as this one. But, probably... especially this one. This gem attempts to do something that pronto isn't made for: examine code from a file that isn't necessarily contained within the diff that pronto is analyzing. Most of pronto-bundler_audit is attempting to solve this problem by overriding the pronto API  with custom adapter objects standing in for Pronto-native object.
 
@@ -35,6 +35,8 @@ Tested MRI Ruby Versions:
 * 2.5
 * 2.6
 * edge
+
+NOTE: pronto-bundler_audit v0.7.0 requires pronto v0.11+ and bundler-audit v0.8+. Use pronto-bundler_audit v0.6.0 if you cannot update pronto and bundler-audit at this time.
 
 ## Usage
 
