@@ -1,9 +1,10 @@
+---
 AllCops:
   UseCache: true
   DisplayCopNames: true
   DisplayStyleGuide: true
   ExtraDetails: false
-  TargetRubyVersion: 2.5.3
+  TargetRubyVersion: 3.0.4
 
 Layout/ClassStructure:
   Enabled: true
@@ -36,13 +37,13 @@ Layout/EmptyLineAfterGuardClause:
 Layout/EndOfLine:
   EnforcedStyle: lf
 
-Layout/IndentFirstArgument:
+Layout/FirstArgumentIndentation:
   EnforcedStyle: consistent_relative_to_receiver
 
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 
 Layout/MultilineAssignmentLayout:
@@ -81,13 +82,13 @@ Metrics/ClassLength:
     - "test/**/*"
     - "lib/object_inspector/formatters/templating_formatter.rb"
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 80
   Exclude:
     - "test/**/*"
     - "object_inspector.gemspec"
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   AllowedNames:
     - a
     - b
