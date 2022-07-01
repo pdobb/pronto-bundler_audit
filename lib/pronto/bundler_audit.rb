@@ -27,7 +27,7 @@ module Pronto
 
       Pronto::BundlerAudit::Results::ProntoMessagesAdapter.call(
         results,
-        runner: self)
+        self)
     end
 
     # @return [Pathname] the absolute path to the current git repo / code.

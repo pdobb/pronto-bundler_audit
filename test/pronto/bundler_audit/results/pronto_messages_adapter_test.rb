@@ -8,7 +8,7 @@ class Pronto::BundlerAudit::Results::ProntoMessagesAdapterTest < Minitest::Spec
     let(:unit_class) { unit_base_class::Results::ProntoMessagesAdapter }
 
     describe ".call" do
-      subject { unit_class.new(results, runner: FakeRunner.new) }
+      subject { unit_class.new(results, FakeRunner.new) }
 
       context "GIVEN results = nil" do
         let(:results) { nil }
@@ -54,7 +54,7 @@ class Pronto::BundlerAudit::Results::ProntoMessagesAdapterTest < Minitest::Spec
       }
 
       subject {
-        unit_class.new(line_number: 99, path: Pathname.new("TEST_PATH"))
+        unit_class.new(99, Pathname.new("TEST_PATH"))
       }
 
       describe "#line_number" do

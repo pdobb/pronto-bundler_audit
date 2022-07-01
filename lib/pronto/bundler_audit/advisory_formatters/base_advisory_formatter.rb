@@ -10,7 +10,7 @@ module Pronto
       class BaseAdvisoryFormatter
         # param gem [Bundler::LazySpecification]
         # param advisory [Bundler::Audit::Advisory]
-        def initialize(gem:, advisory:)
+        def initialize(gem, advisory)
           @gem = gem
           @advisory = advisory
         end

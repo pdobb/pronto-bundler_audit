@@ -29,7 +29,7 @@ class Pronto::BundlerAudit::Results::UnpatchedGemTest < Minitest::Spec
       it "returns an Integer" do
         result = subject.line
 
-        value(@gemfile_lock_scanner_called_with.dig(0, :gem_name)).
+        value(@gemfile_lock_scanner_called_with.dig(0)).
           must_equal("TEST_GEM_NAME")
 
         value(result).must_be_kind_of(Integer)
@@ -51,9 +51,9 @@ class Pronto::BundlerAudit::Results::UnpatchedGemTest < Minitest::Spec
       it "returns a String" do
         result = subject.message
 
-        value(@verbose_advisory_formatter_called_with.dig(0, :gem)).
+        value(@verbose_advisory_formatter_called_with.dig(0)).
           must_be_kind_of(FakeGem)
-        value(@verbose_advisory_formatter_called_with.dig(0, :advisory)).
+        value(@verbose_advisory_formatter_called_with.dig(1)).
           must_be_kind_of(FakeAdvisory)
 
         value(result).must_be_kind_of(String)

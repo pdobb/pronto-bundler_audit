@@ -31,14 +31,14 @@ module Pronto
 
         # @return [Integer]
         def find_relevant_line_number
-          Pronto::BundlerAudit::GemfileLock::Scanner.call(gem_name: @gem.name)
+          Pronto::BundlerAudit::GemfileLock::Scanner.call(@gem.name)
         end
 
         def advisory_formatter
           # TODO: Switch type based on configuration options, once available.
           Pronto::BundlerAudit::AdvisoryFormatters::Verbose.new(
-            gem: @gem,
-            advisory: @advisory)
+            @gem,
+            @advisory)
         end
       end
     end

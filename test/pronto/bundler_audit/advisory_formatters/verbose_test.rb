@@ -8,7 +8,7 @@ class Pronto::BundlerAudit::AdvisoryFormatters::VerboseTest < Minitest::Spec
     let(:unit_class) { unit_base_class::AdvisoryFormatters::Verbose }
 
     describe "#to_s" do
-      subject { unit_class.new(gem: FakeGem.new, advisory: FakeAdvisory.new) }
+      subject { unit_class.new(FakeGem.new, FakeAdvisory.new) }
 
       it "returns the expected String" do
         result = subject.to_s
