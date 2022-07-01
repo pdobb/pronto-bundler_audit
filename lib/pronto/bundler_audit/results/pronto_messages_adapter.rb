@@ -8,7 +8,7 @@ module Pronto
       # ::Pronto::Message objects for use by the Pronto gem when sending issue
       # details to GitHub, etc.
       class ProntoMessagesAdapter
-        def initialize(results, runner:)
+        def initialize(results, runner)
           @results = Array(results)
           @runner = runner
         end
@@ -21,7 +21,7 @@ module Pronto
           @results.map { |result|
             ::Pronto::Message.new(
               @runner.filename,
-              DeepLine.new(line_number: result.line, path: @runner.path),
+              DeepLine.new(result.line, @runner.path),
               result.level,
               result.message,
               @runner.commit_sha,
@@ -35,7 +35,7 @@ module Pronto
           attr_reader :line_number,
                       :path
 
-          def initialize(line_number:, path:)
+          def initialize(line_number, path)
             @line_number = line_number
             @path = path
           end

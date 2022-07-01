@@ -11,8 +11,8 @@ class Pronto::BundlerAudit::GemfileLock::ScannerTest < Minitest::Spec
       context "GIVEN an unknown Gemfile.lock path" do
         subject {
           unit_class.new(
-            gem_name: "TEST_GEM_NAME",
-            path: File.join("test", "fixtures", "UNKNOWNGemfile.lock"))
+            "TEST_GEM_NAME",
+            File.join("test", "fixtures", "UNKNOWNGemfile.lock"))
         }
 
         it "returns the expected line number" do
@@ -27,8 +27,8 @@ class Pronto::BundlerAudit::GemfileLock::ScannerTest < Minitest::Spec
       context "GIVEN the Gemfile.lock has a matching gem" do
         subject {
           unit_class.new(
-            gem_name: "TEST_GEM_NAME",
-            path: File.join("test", "fixtures", "Gemfile.lock"))
+            "TEST_GEM_NAME",
+            File.join("test", "fixtures", "Gemfile.lock"))
         }
 
         it "returns the expected line number" do
@@ -41,8 +41,8 @@ class Pronto::BundlerAudit::GemfileLock::ScannerTest < Minitest::Spec
       context "GIVEN the Gemfile.lock doesn't have a matching gem" do
         subject {
           unit_class.new(
-            gem_name: "UNKNOWN_GEM",
-            path: File.join("test", "fixtures", "Gemfile.lock"))
+            "UNKNOWN_GEM",
+            File.join("test", "fixtures", "Gemfile.lock"))
         }
 
         it "returns 0" do

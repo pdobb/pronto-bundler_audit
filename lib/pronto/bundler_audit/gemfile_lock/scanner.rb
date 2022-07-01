@@ -7,7 +7,7 @@ module Pronto
       # the given `gem_name` and returns an Integer representing the line number
       # of the gem in the Gemfile.lock file.
       class Scanner
-        def initialize(gem_name:, path: GEMFILE_LOCK_FILENAME)
+        def initialize(gem_name, path = GEMFILE_LOCK_FILENAME)
           unless File.exist?(path)
             raise ArgumentError, "Gemfile.lock path not found"
           end
